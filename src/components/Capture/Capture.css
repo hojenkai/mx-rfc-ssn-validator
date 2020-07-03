@@ -4,3 +4,15 @@
   margin: auto;
   padding-top: 50px;
 }
+
+.validation-result-container {
+  margin-top: 50px;
+}
+
+.invalid-label {
+  color: red;
+}
+
+.history-container {
+  margin-top: 30px;
+}

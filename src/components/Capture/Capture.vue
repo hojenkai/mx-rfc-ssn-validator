@@ -22,10 +22,13 @@
           <span v-if="form.nss.length === 11">Año de nacimiento calculado: {{getYoB()}}</span>
         </md-field>
 
-        <md-icon class="md-primary">thumb_{{getIcon()}}</md-icon>
+        <div class="history-container" v-show="records.length > 0">
+          <History :records="records"/>
+        </div>
       </md-card-content>
 
       <md-card-actions>
+        <md-button class="md-raised" @click="addHistoryItem()" v-show="!this.$v.$invalid">Registrar</md-button>
         <md-button class="md-raised md-primary" @click="validate">Validar</md-button>
       </md-card-actions>
     </md-card>
@@ -33,6 +36,7 @@
 </div>
 </template>
 <style src="./Capture.css"></style>
+
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { validationMixin } from 'vuelidate'
@@ -42,6 +46,9 @@ import {
   maxLength,
   helpers,
 } from 'vuelidate/lib/validators'
+
+import { Record } from "../../services/Record";
+import History from "../../components/History/History.vue";
 
 interface Form {
   rfc: string;
@@ -55,6 +62,9 @@ const nssValidator = helpers.regex('nss', nssRegEx);
 
 @Component({
   mixins: [validationMixin],
+  components: {
+    History
+  },
   validations: {
     form: {
       rfc: {
@@ -71,6 +81,7 @@ const nssValidator = helpers.regex('nss', nssRegEx);
   }
 })
 export default class Capture extends Vue {
+  private records: Record[] = [];
   private form: Form = {
     rfc: "",
     nss: ""
@@ -111,6 +122,13 @@ export default class Capture extends Vue {
     return {
       "md-invalid": invalid
     };
+  }
+
+  addHistoryItem() {
+    this.records.push({rfc: this.form.rfc, ssn: this.form.nss });
+    this.form.rfc = "";
+    this.form.nss = "";
+    this.$v.$reset();
   }
 }
 </script>
