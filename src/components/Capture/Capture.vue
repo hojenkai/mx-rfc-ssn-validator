@@ -43,8 +43,6 @@ import {
   helpers,
 } from 'vuelidate/lib/validators'
 
-import template from "./Capture.vue";
-
 interface Form {
   rfc: string;
   nss: string;
@@ -56,7 +54,7 @@ const rfcValidator = helpers.regex('rfc', rfcRegEx);
 const nssValidator = helpers.regex('nss', nssRegEx);
 
 @Component({
-  mixins: [validationMixin, template],
+  mixins: [validationMixin],
   validations: {
     form: {
       rfc: {
