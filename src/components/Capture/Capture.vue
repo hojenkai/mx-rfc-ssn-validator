@@ -19,18 +19,23 @@
           <md-input name="number" id="nss" v-model="form.nss" autocomplete="off"/>
           <span class="md-error" v-if="!$v.form.nss.required">NSS es requerido</span>
           <span class="md-error" v-else-if="!$v.form.nss.minlength">NSS invalido</span>
-          <span v-if="form.nss.length === 11">Año de nacimiento calculado: {{getYoB()}}</span>
+          <span v-if="!$v.form.nss.$invalid">Año de nacimiento calculado: {{getYoB()}}</span>
         </md-field>
+
+        <div class="actions-container">
+          <md-button
+            class="md-raised md-primary"
+            @click="addHistoryItem()"
+            :disabled="this.$v.$invalid"
+          >
+            Registrar
+          </md-button>
+        </div>
 
         <div class="history-container" v-show="records.length > 0">
           <History :records="records"/>
         </div>
       </md-card-content>
-
-      <md-card-actions>
-        <md-button class="md-raised" @click="addHistoryItem()" v-show="!this.$v.$invalid">Registrar</md-button>
-        <md-button class="md-raised md-primary" @click="validate">Validar</md-button>
-      </md-card-actions>
     </md-card>
   </form>
 </div>
@@ -100,14 +105,6 @@ export default class Capture extends Vue {
     return parseInt("19"+year, 10);
   }
 
-  validate() {
-    this.$v.$touch();
-
-    if (!this.$v.$invalid) {
-      this.yob = this.getYoB();
-    }
-  }
-
   getIcon() {
     return this.$v.$invalid ? "down" : "up";
   }
@@ -125,6 +122,12 @@ export default class Capture extends Vue {
   }
 
   addHistoryItem() {
+    this.$v.$touch();
+
+    if ( this.$v.$invalid ) {
+      return;
+    }
+
     this.records.push({rfc: this.form.rfc, ssn: this.form.nss });
     this.form.rfc = "";
     this.form.nss = "";

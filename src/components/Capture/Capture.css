@@ -5,12 +5,11 @@
   padding-top: 50px;
 }
 
-.validation-result-container {
-  margin-top: 50px;
+.actions-container {
+  text-align: right;
 }
-
-.invalid-label {
-  color: red;
+.actions-container button {
+  margin-right: 0px !important;
 }
 
 .history-container {
