@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Capture/>
+    <Capture />
   </div>
 </template>
 <style src="./App.css"></style>

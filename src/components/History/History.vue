@@ -2,17 +2,17 @@
   <div>
     <md-list class="md-double-line md-dense">
       <md-subheader>Capturas</md-subheader>
-      <div v-for="(record, index) in records">
+      <div v-for="(record, index) in records" :key="'record' + index">
         <md-list-item>
           <md-icon class="md-primary">person</md-icon>
           <div class="md-list-item-text">
-            <span>{{record.rfc}}</span>
+            <span>{{ record.rfc }}</span>
             <span>RFC</span>
           </div>
           <md-button
             class="md-icon-button md-list-action"
-            @click="copyRFC(index)"
             title="Copiar"
+            @click="copyRFC(index)"
           >
             <md-icon>content_copy</md-icon>
           </md-button>
@@ -21,13 +21,13 @@
         <md-list-item>
           <md-icon class="md-primary"></md-icon>
           <div class="md-list-item-text">
-            <span>{{record.ssn}}</span>
+            <span>{{ record.ssn }}</span>
             <span>NSS</span>
           </div>
           <md-button
             class="md-icon-button md-list-action"
-            @click="copySSN(index)"
             title="Copiar"
+            @click="copySSN(index)"
           >
             <md-icon>content_copy</md-icon>
           </md-button>
