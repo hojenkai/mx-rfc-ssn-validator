@@ -45,7 +45,6 @@
           <div class="actions-container">
             <md-button
               class="md-raised md-primary"
-              :disabled="this.$v.$invalid"
               @click="addHistoryItem()"
             >
               Registrar
